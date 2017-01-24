@@ -1,0 +1,7 @@
+.field {
+  box-sizing: border-box;
+  border: 1px solid red;
+  padding: 5px;
+  float: left;
+  clear: both;
+}

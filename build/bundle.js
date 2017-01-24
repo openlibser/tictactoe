@@ -54,20 +54,18 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Row = __webpack_require__(178);
+	var _Field = __webpack_require__(178);
 
-	var _Row2 = _interopRequireDefault(_Row);
+	var _Field2 = _interopRequireDefault(_Field);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(
-	  'div',
-	  null,
-	  _react2.default.createElement(_Row2.default, {
-	    cellsData: [{ type: 'x', state: 'full' }, { type: 'o', state: 'full' }, { type: 'x', state: 'empty' }]
-	  })
-	), document.getElementById('app-root'));
+	var data = [[{ type: 'x', state: 'empty' }, { type: 'o', state: 'full' }, { type: 'x', state: 'full' }], [{ type: 'x', state: 'full' }, { type: 'x', state: 'full' }, { type: 'x', state: 'full' }], [{ type: 'x', state: 'full' }, { type: 'o', state: 'empty' }, { type: 'o', state: 'full' }], [{ type: 'x', state: 'full' }, { type: 'x', state: 'full' }, { type: 'x', state: 'empty' }]];
 	// import Cell from './components/Cell';
+	// import Row from './components/Row';
+
+
+	_reactDom2.default.render(_react2.default.createElement(_Field2.default, { rowsData: data }), document.getElementById('app-root'));
 
 /***/ },
 /* 1 */
@@ -21428,38 +21426,35 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _row = __webpack_require__(179);
+	var _field = __webpack_require__(179);
 
-	var _row2 = _interopRequireDefault(_row);
+	var _field2 = _interopRequireDefault(_field);
 
-	var _Cell = __webpack_require__(183);
+	var _Row = __webpack_require__(183);
 
-	var _Cell2 = _interopRequireDefault(_Cell);
+	var _Row2 = _interopRequireDefault(_Row);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function Row(props) {
+	function Field(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    { className: _row2.default.row },
-	    props.cellsData.map(function (cell) {
-	      return _react2.default.createElement(_Cell2.default, {
-	        type: cell.type,
-	        state: cell.state
-	      });
+	    { className: _field2.default.field },
+	    props.rowsData.map(function (row) {
+	      return _react2.default.createElement(_Row2.default, { cellsData: row });
 	    })
 	  );
 	}
 
-	Row.propTypes = {
-	  cellsData: _react2.default.PropTypes.array
+	Field.propTypes = {
+	  rowsData: _react2.default.PropTypes.array
 	};
 
-	Row.defaultProps = {
-	  cellsData: []
+	Field.defaultProps = {
+	  rowsData: []
 	};
 
-	exports.default = Row;
+	exports.default = Field;
 
 /***/ },
 /* 179 */
@@ -21477,8 +21472,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./row.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./row.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./field.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./field.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -21496,11 +21491,11 @@
 
 
 	// module
-	exports.push([module.id, ".row__row___xkeQO {\n  box-sizing: border-box;\n  border: 1px solid blue;\n  padding: 2px;\n  box-sizing: content-box;\n}", ""]);
+	exports.push([module.id, ".field__field___32O5S {\n  box-sizing: border-box;\n  border: 1px solid red;\n  padding: 5px;\n  float: left;\n  clear: both;\n}", ""]);
 
 	// exports
 	exports.locals = {
-		"row": "row__row___xkeQO"
+		"field": "field__field___32O5S"
 	};
 
 /***/ },
@@ -21825,19 +21820,108 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _cell = __webpack_require__(184);
+	var _row = __webpack_require__(184);
+
+	var _row2 = _interopRequireDefault(_row);
+
+	var _Cell = __webpack_require__(186);
+
+	var _Cell2 = _interopRequireDefault(_Cell);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function Row(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: _row2.default.row },
+	    props.cellsData.map(function (cell) {
+	      return _react2.default.createElement(_Cell2.default, {
+	        type: cell.type,
+	        state: cell.state
+	      });
+	    })
+	  );
+	}
+
+	Row.propTypes = {
+	  cellsData: _react2.default.PropTypes.array
+	};
+
+	Row.defaultProps = {
+	  cellsData: []
+	};
+
+	exports.default = Row;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(185);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(182)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./row.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules=true&localIdentName=[name]__[local]___[hash:base64:5]!./row.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(181)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".row__row___xkeQO {\n  box-sizing: border-box;\n  border: 1px solid blue;\n  padding: 2px;\n  float: left;\n  clear: both;\n}", ""]);
+
+	// exports
+	exports.locals = {
+		"row": "row__row___xkeQO"
+	};
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _cell = __webpack_require__(187);
 
 	var _cell2 = _interopRequireDefault(_cell);
 
-	var _x = __webpack_require__(186);
+	var _x = __webpack_require__(189);
 
 	var _x2 = _interopRequireDefault(_x);
 
-	var _o = __webpack_require__(187);
+	var _o = __webpack_require__(190);
 
 	var _o2 = _interopRequireDefault(_o);
 
-	var _empty = __webpack_require__(188);
+	var _empty = __webpack_require__(191);
 
 	var _empty2 = _interopRequireDefault(_empty);
 
@@ -21877,13 +21961,13 @@
 	exports.default = Cell;
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(185);
+	var content = __webpack_require__(188);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(182)(content, {});
@@ -21903,7 +21987,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(181)();
@@ -21919,19 +22003,19 @@
 	};
 
 /***/ },
-/* 186 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4adc27c3511e947a856083b19272cb7c.png";
 
 /***/ },
-/* 187 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b55d5885162e2d225f4c184c58444eac.png";
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "731582d243aa92efec940283fe67ad80.png";
