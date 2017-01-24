@@ -1,0 +1,7 @@
+.row {
+  box-sizing: border-box;
+  border: 1px solid blue;
+  padding: 2px;
+  float: left;
+  clear: both;
+}
