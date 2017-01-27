@@ -4,4 +4,22 @@
   outline: 1px solid black;
   display: inline-block;
   box-sizing: border-box;
+  background: no-repeat;
+  background-color: #FFF;
+  background-position: center;
+  background-size: cover;
+  margin: 0px;
+  padding: 0px;
+  box-shadow:none;
+  border-radius: 0px;
+  border: 0px solid;
+  outline: none;
+}
+
+.cell:focus {
+  outline: none;
+}
+
+.cell::-moz-focus-inner {
+  border: 0;
 }

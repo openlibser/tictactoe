@@ -2,13 +2,15 @@ import React from 'react';
 import styles from './row.css';
 import Cell from '../Cell';
 
-function Row(props) {
+function Row({ cells, onCellClick }) {
   return (<div className={styles.row}>
     {
-      props.cellsData.map(cell =>
+      cells.map(cell =>
         <Cell
+          key={cell.id}
           type={cell.type}
           state={cell.state}
+          onclick={onCellClick}
         />,
       )
     }
@@ -16,11 +18,11 @@ function Row(props) {
 }
 
 Row.propTypes = {
-  cellsData: React.PropTypes.array,
+  cells: React.PropTypes.array.isRequired,
 };
 
 Row.defaultProps = {
-  cellsData: [],
+  cells: [],
 };
 
 export default Row;

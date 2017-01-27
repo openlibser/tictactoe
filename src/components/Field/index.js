@@ -2,22 +2,26 @@ import React from 'react';
 import styles from './field.css';
 import Row from '../Row';
 
-function Field(props) {
+function Field({ rows, onCellClick }) {
   return (<div className={styles.field}>
     {
-      props.rowsData.map(row =>
-        <Row cellsData={row} />,
+      rows.map(row =>
+        <Row
+          key={row.id}
+          cellsData={row.cells}
+          onCellClick
+        />,
       )
     }
   </div>);
 }
 
 Field.propTypes = {
-  rowsData: React.PropTypes.array,
+  rows: React.PropTypes.array.isRequired,
 };
 
 Field.defaultProps = {
-  rowsData: [],
+  rows: [],
 };
 
 export default Field;
