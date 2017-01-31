@@ -23659,13 +23659,40 @@
 	  value: true
 	});
 
-	var _cells = __webpack_require__(217);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _cells2 = _interopRequireDefault(_cells);
+	var _rows = __webpack_require__(217);
+
+	var _rows2 = _interopRequireDefault(_rows);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _cells2.default;
+	var defaultState = {
+	  rows: [{
+	    rowId: 1,
+	    cells: [{ id: 11, type: 'x', state: 'empty' }, { id: 12, type: 'o', state: 'empty' }, { id: 13, type: 'x', state: 'empty' }]
+	  }, {
+	    rowId: 2,
+	    cells: [{ id: 21, type: 'o', state: 'empty' }, { id: 22, type: 'x', state: 'empty' }, { id: 23, type: 'x', state: 'empty' }]
+	  }, {
+	    rowId: 3,
+	    cells: [{ id: 31, type: 'o', state: 'empty' }, { id: 32, type: 'x', state: 'empty' }, { id: 33, type: 'x', state: 'empty' }]
+	  }]
+	};
+
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'TOGGLE_CELL':
+	      return _extends({}, state, {
+	        rows: (0, _rows2.default)(state.rows)
+	      });
+	    default:
+	      return state;
+	  }
+	};
 
 /***/ },
 /* 217 */
@@ -23694,32 +23721,27 @@
 	  }
 	};
 
-	var defaultRowsState = {
-	  rows: [{
-	    rowId: 0,
-	    cells: [{ id: 11, type: 'x', state: 'empty' }]
-	  }]
-	};
-
-	var cells = function cells() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultRowsState.rows;
+	var rows = function rows() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case 'TOGGLE_CELL':
-	      return state.map(function (row) {
-	        return _extends({}, row, {
-	          cells: cells.map(function (cellState) {
-	            return cell(cellState, action);
-	          })
-	        });
+	      return _extends({}, state, {
+	        rows: state.rows.map(function (row) {
+	          return _extends({}, row, {
+	            cells: row.cells.map(function (cellState) {
+	              return cell(cellState, action);
+	            })
+	          });
+	        })
 	      });
 	    default:
 	      return state;
 	  }
 	};
 
-	exports.default = cells;
+	exports.default = rows;
 
 /***/ },
 /* 218 */
@@ -23767,7 +23789,7 @@
 	var toggleCell = exports.toggleCell = function toggleCell(id) {
 	  return {
 	    type: 'TOGGLE_CELL',
-	    cellId: id
+	    id: id
 	  };
 	};
 
@@ -23804,16 +23826,17 @@
 	    { className: _field2.default.field },
 	    rows.map(function (row) {
 	      return _react2.default.createElement(_Row2.default, {
-	        key: row.id,
-	        cellsData: row.cells,
-	        onCellClick: true
+	        key: row.rowId,
+	        cells: row.cells,
+	        onCellClick: onCellClick
 	      });
 	    })
 	  );
 	}
 
 	Field.propTypes = {
-	  rows: _react2.default.PropTypes.array.isRequired
+	  rows: _react2.default.PropTypes.array.isRequired,
+	  onCellClick: _react2.default.PropTypes.func.isRequired
 	};
 
 	Field.defaultProps = {
@@ -24208,14 +24231,17 @@
 	        key: cell.id,
 	        type: cell.type,
 	        state: cell.state,
-	        onclick: onCellClick
+	        onClick: function onClick() {
+	          return onCellClick(cell.id);
+	        }
 	      });
 	    })
 	  );
 	}
 
 	Row.propTypes = {
-	  cells: _react2.default.PropTypes.array.isRequired
+	  cells: _react2.default.PropTypes.array.isRequired,
+	  onCellClick: _react2.default.PropTypes.func.isRequired
 	};
 
 	Row.defaultProps = {
@@ -24372,7 +24398,7 @@
 
 
 	// module
-	exports.push([module.id, ".cell__cell___y8SkW {\n  width: 100px;\n  height: 100px;\n  outline: 1px solid black;\n  display: inline-block;\n  box-sizing: border-box;\n  background: no-repeat;\n  background-color: #FFF;\n  background-position: center;\n  background-size: cover;\n  margin: 0px;\n  padding: 0px;\n  box-shadow:none;\n  border-radius: 0px;\n  border: 0px solid;\n  outline: none;\n}\n\n.cell__cell___y8SkW:focus {\n  outline: none;\n}\n\n.cell__cell___y8SkW::-moz-focus-inner {\n  border: 0;\n}\n", ""]);
+	exports.push([module.id, ".cell__cell___y8SkW {\n  width: 100px;\n  height: 100px;\n  outline: 1px solid black;\n  display: inline-block;\n  box-sizing: border-box;\n  background: no-repeat;\n  background-color: #FFF;\n  background-position: center;\n  background-size: cover;\n  margin: 0px;\n  padding: 0px;\n  box-shadow:none;\n  border-radius: 0px;\n  border: 1px solid green;\n  outline: none;\n  margin: 1px;\n}\n\n.cell__cell___y8SkW:focus {\n  outline: none;\n}\n\n.cell__cell___y8SkW::-moz-focus-inner {\n  border: 0;\n}\n", ""]);
 
 	// exports
 	exports.locals = {
