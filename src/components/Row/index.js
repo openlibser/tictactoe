@@ -10,7 +10,7 @@ function Row({ cells, onCellClick }) {
           key={cell.id}
           type={cell.type}
           state={cell.state}
-          onclick={onCellClick}
+          onClick={() => onCellClick(cell.id)}
         />,
       )
     }
@@ -19,6 +19,7 @@ function Row({ cells, onCellClick }) {
 
 Row.propTypes = {
   cells: React.PropTypes.array.isRequired,
+  onCellClick: React.PropTypes.func.isRequired,
 };
 
 Row.defaultProps = {

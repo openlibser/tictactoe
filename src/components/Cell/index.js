@@ -30,7 +30,7 @@ function Cell({ type, state, onClick }) {
 Cell.propTypes = {
   state: React.PropTypes.string.isRequired,
   type: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.function.isRequired,
+  onClick: React.PropTypes.func.isRequired,
 };
 
 Cell.defaultProps = {

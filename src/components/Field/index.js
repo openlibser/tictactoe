@@ -7,9 +7,9 @@ function Field({ rows, onCellClick }) {
     {
       rows.map(row =>
         <Row
-          key={row.id}
-          cellsData={row.cells}
-          onCellClick
+          key={row.rowId}
+          cells={row.cells}
+          onCellClick={onCellClick}
         />,
       )
     }
@@ -18,6 +18,7 @@ function Field({ rows, onCellClick }) {
 
 Field.propTypes = {
   rows: React.PropTypes.array.isRequired,
+  onCellClick: React.PropTypes.func.isRequired,
 };
 
 Field.defaultProps = {
