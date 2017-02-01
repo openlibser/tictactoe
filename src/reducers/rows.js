@@ -1,4 +1,4 @@
-const cell = (state, action) => {
+const cellReducer = (state, action) => {
   switch (action.type) {
     case 'TOGGLE_CELL':
       if (state.id !== action.id) {
@@ -46,7 +46,7 @@ const rows = (state = initState, action) => {
     case 'TOGGLE_CELL':
       return state.map(row => ({
         ...row,
-        cells: row.cells.map(cellState => cell(cellState, action)),
+        cells: row.cells.map(cellState => cellReducer(cellState, action)),
       }));
     default:
       return state;
