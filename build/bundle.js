@@ -23659,7 +23659,7 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _redux = __webpack_require__(178);
 
 	var _rows = __webpack_require__(217);
 
@@ -23668,31 +23668,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var defaultState = {
-	  rows: [{
-	    rowId: 1,
-	    cells: [{ id: 11, type: 'x', state: 'empty' }, { id: 12, type: 'o', state: 'empty' }, { id: 13, type: 'x', state: 'empty' }]
-	  }, {
-	    rowId: 2,
-	    cells: [{ id: 21, type: 'o', state: 'empty' }, { id: 22, type: 'x', state: 'empty' }, { id: 23, type: 'x', state: 'empty' }]
-	  }, {
-	    rowId: 3,
-	    cells: [{ id: 31, type: 'o', state: 'empty' }, { id: 32, type: 'x', state: 'empty' }, { id: 33, type: 'x', state: 'empty' }]
-	  }]
+	  rows: []
 	};
 
-	exports.default = function () {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'TOGGLE_CELL':
-	      return _extends({}, state, {
-	        rows: (0, _rows2.default)(state.rows)
-	      });
-	    default:
-	      return state;
-	  }
-	};
+	exports.default = (0, _redux.combineReducers)(_rows2.default);
 
 /***/ },
 /* 217 */
@@ -23721,20 +23700,29 @@
 	  }
 	};
 
+	var initState = [{
+	  rowId: 1,
+	  cells: [{ id: 11, type: 'x', state: 'empty' }, { id: 12, type: 'o', state: 'empty' }, { id: 13, type: 'x', state: 'empty' }]
+	}, {
+	  rowId: 2,
+	  cells: [{ id: 21, type: 'o', state: 'empty' }, { id: 22, type: 'x', state: 'empty' }, { id: 23, type: 'x', state: 'empty' }]
+	}, {
+	  rowId: 3,
+	  cells: [{ id: 31, type: 'o', state: 'empty' }, { id: 32, type: 'x', state: 'empty' }, { id: 33, type: 'x', state: 'empty' }]
+	}];
+
 	var rows = function rows() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case 'TOGGLE_CELL':
-	      return _extends({}, state, {
-	        rows: state.rows.map(function (row) {
-	          return _extends({}, row, {
-	            cells: row.cells.map(function (cellState) {
-	              return cell(cellState, action);
-	            })
-	          });
-	        })
+	      return state.map(function (row) {
+	        return _extends({}, row, {
+	          cells: row.cells.map(function (cellState) {
+	            return cell(cellState, action);
+	          })
+	        });
 	      });
 	    default:
 	      return state;
