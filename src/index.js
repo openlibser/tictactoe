@@ -6,6 +6,7 @@ import reducer from './reducers';
 import Field from './containers/Field';
 
 const store = createStore(reducer);
+window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>

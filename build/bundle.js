@@ -69,6 +69,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var store = (0, _redux.createStore)(_reducers2.default);
+	window.store = store;
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -23667,11 +23668,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var defaultState = {
-	  rows: []
-	};
-
-	exports.default = (0, _redux.combineReducers)(_rows2.default);
+	exports.default = (0, _redux.combineReducers)({
+	  rows: _rows2.default
+	});
 
 /***/ },
 /* 217 */
@@ -23685,18 +23684,26 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var cell = function cell(state, action) {
+	var cellReducer = function cellReducer(cellState, action) {
 	  switch (action.type) {
 	    case 'TOGGLE_CELL':
-	      if (state.id !== action.id) {
-	        return state;
+	      if (cellState.id !== action.id) {
+	        return cellState;
 	      }
 
-	      return _extends({}, state, {
+	      return _extends({}, cellState, {
 	        state: 'full'
 	      });
+	    case 'CHANGE_CELL_TYPE':
+	      if (cellState.id !== action.id) {
+	        return cellState;
+	      }
+
+	      return _extends({}, cellState, {
+	        type: cellState.type === 'x' ? 'o' : 'x'
+	      });
 	    default:
-	      return state;
+	      return cellState;
 	  }
 	};
 
@@ -23717,10 +23724,11 @@
 
 	  switch (action.type) {
 	    case 'TOGGLE_CELL':
+	    case 'CHANGE_CELL_TYPE':
 	      return state.map(function (row) {
 	        return _extends({}, row, {
 	          cells: row.cells.map(function (cellState) {
-	            return cell(cellState, action);
+	            return cellReducer(cellState, action);
 	          })
 	        });
 	      });
@@ -23774,10 +23782,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var toggleCell = exports.toggleCell = function toggleCell(id) {
+	var toggleCell = exports.toggleCell = function toggleCell(cellId) {
 	  return {
 	    type: 'TOGGLE_CELL',
-	    id: id
+	    id: cellId
+	  };
+	};
+
+	var changeType = exports.changeType = function changeType(cellId) {
+	  return {
+	    type: 'CHANGE_CELL_TYPE',
+	    id: cellId
 	  };
 	};
 

@@ -1,16 +1,25 @@
-const cellReducer = (state, action) => {
+const cellReducer = (cellState, action) => {
   switch (action.type) {
     case 'TOGGLE_CELL':
-      if (state.id !== action.id) {
-        return state;
+      if (cellState.id !== action.id) {
+        return cellState;
       }
 
       return {
-        ...state,
+        ...cellState,
         state: 'full',
       };
+    case 'TOGGLE_CELL_TYPE':
+      if (cellState.id !== action.id) {
+        return cellState;
+      }
+
+      return {
+        ...cellState,
+        type: cellState.type === 'x' ? 'o' : 'x',
+      };
     default:
-      return state;
+      return cellState;
   }
 };
 
@@ -44,6 +53,7 @@ const initState = [
 const rows = (state = initState, action) => {
   switch (action.type) {
     case 'TOGGLE_CELL':
+    case 'TOGGLE_CELL_TYPE':
       return state.map(row => ({
         ...row,
         cells: row.cells.map(cellState => cellReducer(cellState, action)),
