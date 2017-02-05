@@ -23694,13 +23694,21 @@
 	      return _extends({}, cellState, {
 	        state: 'full'
 	      });
-	    case 'CHANGE_CELL_TYPE':
+	    case 'TOGGLE_CELL_TYPE':
 	      if (cellState.id !== action.id) {
 	        return cellState;
 	      }
 
 	      return _extends({}, cellState, {
 	        type: cellState.type === 'x' ? 'o' : 'x'
+	      });
+	    case 'SET_CELL_TYPE':
+	      if (cellState.id !== action.id) {
+	        return cellState;
+	      }
+
+	      return _extends({}, cellState, {
+	        type: action.cellType
 	      });
 	    default:
 	      return cellState;
@@ -23724,7 +23732,8 @@
 
 	  switch (action.type) {
 	    case 'TOGGLE_CELL':
-	    case 'CHANGE_CELL_TYPE':
+	    case 'TOGGLE_CELL_TYPE':
+	    case 'SET_CELL_TYPE':
 	      return state.map(function (row) {
 	        return _extends({}, row, {
 	          cells: row.cells.map(function (cellState) {
@@ -23793,6 +23802,14 @@
 	  return {
 	    type: 'CHANGE_CELL_TYPE',
 	    id: cellId
+	  };
+	};
+
+	var setType = exports.setType = function setType(cellId, cellType) {
+	  return {
+	    type: 'SET_CELL_TYPE',
+	    id: cellId,
+	    cellType: cellType
 	  };
 	};
 

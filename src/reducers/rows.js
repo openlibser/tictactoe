@@ -18,6 +18,19 @@ const cellReducer = (cellState, action) => {
         ...cellState,
         type: cellState.type === 'x' ? 'o' : 'x',
       };
+    case 'SET_CELL_TYPE':
+      if (cellState.id !== action.id) {
+        return cellState;
+      }
+
+      if (action.cellType !== 'x' && action.cellType !== 'o') {
+        throw new Error(`invalid action.cellType: ${action.cellType}`);
+      }
+
+      return {
+        ...cellState,
+        type: action.cellType,
+      };
     default:
       return cellState;
   }
@@ -54,6 +67,7 @@ const rows = (state = initState, action) => {
   switch (action.type) {
     case 'TOGGLE_CELL':
     case 'TOGGLE_CELL_TYPE':
+    case 'SET_CELL_TYPE':
       return state.map(row => ({
         ...row,
         cells: row.cells.map(cellState => cellReducer(cellState, action)),
